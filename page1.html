@@ -26,14 +26,14 @@
     <a href="index.html">← Back to Homepage</a>
   </div>
 
-  <!-- your sketch -->
+
   <script src="sketch1.js"></script>
 
-  <!-- tag the p5 canvas so it fills edge-to-edge and aligns left -->
+
   <script>
     function tagCanvas(){
       const list = document.querySelectorAll('canvas');
-      const c = list[list.length - 1]; // grab the sketch canvas if others exist
+      const c = list[list.length - 1];
       if (c) c.classList.add('fullbleed');
     }
     requestAnimationFrame(tagCanvas);
