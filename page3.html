@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Pacman | Hriday</title>
+  <title>Battleship Framework | Hriday</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"></script>
@@ -18,22 +18,23 @@
 </head>
 <body>
   <div class="container">
-    <h1>PACMAN</h1>
+    <h1>BATTLESHIP FRAMEWORK</h1>
     <p>
-      A grid-free twist on Pacman. Click to spawn ghosts. Pacman auto-chases them,
-      grows each time he eats one, and scares nearby ghosts into fleeing.
+      Built a Battleship framework using the array-grid approach from class. This version renders a single player board.
+      Ships are placed at random with an object-oriented setup, and you can adjust parameters like ship length and
+      number of ships. Solid base to expand into a full two-player game.
     </p>
     <a href="index.html">← Back to Homepage</a>
   </div>
 
   <!-- your sketch -->
-  <script src="sketch1.js"></script>
+  <script src="sketch3.js"></script>
 
   <!-- tag the p5 canvas so it fills edge-to-edge and aligns left -->
   <script>
     function tagCanvas(){
       const list = document.querySelectorAll('canvas');
-      const c = list[list.length - 1]; // grab the sketch canvas if others exist
+      const c = list[list.length - 1];
       if (c) c.classList.add('fullbleed');
     }
     requestAnimationFrame(tagCanvas);

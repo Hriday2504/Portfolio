@@ -2,42 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Pacman | Hriday</title>
+  <title>Sequencer | Hriday</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"></script>
   <style>
+    /* reset + theme */
     html,body{margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;overflow-x:hidden}
+    /* centered header/content */
     .container{max-width:900px;margin:8vh auto 0;padding:0 20px;text-align:center}
     h1{margin:0 0 .6rem;font-size:clamp(32px,6vw,56px);font-weight:800}
     p{margin:0 auto 1.2rem;max-width:70ch;color:#9fc2ff;line-height:1.55;font-size:clamp(14px,2.2vw,18px)}
     a{display:inline-block;margin:.25rem 0 1.5rem;color:#9fc2ff;text-decoration:none;border:1px solid rgba(255,255,255,.2);padding:.5rem .75rem;border-radius:10px}
     a:hover{background:rgba(255,255,255,.08)}
+    /* make the p5 canvas full-bleed and flush-left */
     canvas.fullbleed{display:block;width:100vw;max-width:100vw;margin:0}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>PACMAN</h1>
-    <p>
-      A grid-free twist on Pacman. Click to spawn ghosts. Pacman auto-chases them,
-      grows each time he eats one, and scares nearby ghosts into fleeing.
-    </p>
+    <h1>DELAY PEDAL / SEQUENCER</h1>
+    <p>Click squares to activate notes (they turn grey). The grid loops and selected notes play next cycle. BPM below shows tempo.</p>
     <a href="index.html">← Back to Homepage</a>
   </div>
 
   <!-- your sketch -->
-  <script src="sketch1.js"></script>
+  <script src="sketch2.js"></script>
 
-  <!-- tag the p5 canvas so it fills edge-to-edge and aligns left -->
+  <!-- after p5 creates the canvas, force full-bleed left alignment -->
   <script>
-    function tagCanvas(){
-      const list = document.querySelectorAll('canvas');
-      const c = list[list.length - 1]; // grab the sketch canvas if others exist
+    function tagCanvas() {
+      const c = document.querySelector('canvas');
       if (c) c.classList.add('fullbleed');
     }
+    // p5 creates the canvas after scripts run; tag it on the next frame and on resize
     requestAnimationFrame(tagCanvas);
-    addEventListener('resize', tagCanvas);
+    window.addEventListener('resize', tagCanvas);
   </script>
 </body>
 </html>

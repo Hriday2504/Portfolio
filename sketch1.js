@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(20);
 
   pacman.display();
   pacman.update();

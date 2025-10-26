@@ -8,33 +8,191 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
 
     <style>
-      html, body { height: 100%; margin: 0; }
+      :root { --nav-h: 46px; }
+
+      html, body { height: 100%; margin: 0; overflow: hidden; }
       body {
         background: #000;
         color: #fff;
         font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
         cursor: none;
+        padding-top: var(--nav-h);
       }
-      main {
+
+      /* top nav */
+      .site-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: var(--nav-h);
+        background: rgba(20,22,26,0.72);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+        z-index: 100;
+      }
+      .site-nav nav {
+        height: 100%;
+        display: grid;
+        place-items: center;
+      }
+      .nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0 14px;
+        display: grid;
+        grid-auto-flow: column;
+        gap: 100px;
+      }
+      .nav-link {
+        display: inline-block;
+        font: 600 13px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        color: #b7c3cf;
+        padding: 12px 2px;
         position: relative;
-        z-index: 1;
-        padding: 14vh 7vw 20vh;
       }
-      a { color: rgb(155,204,251); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      h1 { font-size: clamp(28px, 6vw, 64px); margin: 0 0 12px; }
-      p  { color: rgb(155,204,251); margin: 0 0 18px; max-width: 70ch; }
+      .nav-link:hover,
+      .nav-link:focus { color: #e7edf3; }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: -6px;
+        height: 1px;
+        background: rgba(255,255,255,0.35);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform .18s ease;
+      }
+      .nav-link:hover::after,
+      .nav-link:focus::after,
+      .nav-link.is-active::after { transform: scaleX(1); }
+      .nav-link:focus { outline: 2px solid #7cacf8; outline-offset: 2px; }
+
+      main { position: relative; z-index: 1; }
+
+      /* bouncing boxes */
+      .bounce-box {
+        position: fixed;
+        top: 0; left: 0;
+        padding: 18px 26px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        backdrop-filter: blur(6px);
+        color: #eaf4ff;
+        user-select: none;
+        pointer-events: none;
+        z-index: 200;
+        text-align: center;
+        white-space: normal;
+        max-width: min(90vw, 900px);
+        line-height: 1.2;
+      }
+
+      .intro-title {
+        font-size: clamp(26px, 6vw, 56px);
+        font-weight: 800;
+        letter-spacing: .02em;
+        margin: 0;
+      }
+      .intro-sub {
+        font-size: clamp(26px, 6vw, 56px);
+        font-weight: 800;
+        letter-spacing: .02em;
+        margin: 8px 0 0 0;
+        color: rgb(155,204,251);
+      }
+
+      .bio {
+        color: rgb(200,220,245);
+        font-size: clamp(14px, 2.6vw, 18px);
+        margin: 0;
+      }
+
+      @media (max-width: 640px){
+        .nav-list { gap: 40px; }
+        :root { --nav-h: 44px; }
+      }
     </style>
   </head>
 
   <body>
+    <!-- fixed top bar -->
+    <header class="site-nav" role="navigation" aria-label="Primary">
+      <nav>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="index.html">HOME</a></li>
+          <li><a class="nav-link" href="page1.html">PROJECT 1</a></li>
+          <li><a class="nav-link" href="page2.html">PROJECT 2</a></li>
+          <li><a class="nav-link" href="page3.html">PROJECT 3</a></li>
+          <li><a class="nav-link" href="https://www.hridayagrawal.com/" target="_blank">PROFESSIONAL WEBSITE</a></li>
+        </ul>
+      </nav>
+    </header>
+
     <main>
-      <h1>HI, MY NAME IS HRIDAY</h1>
-      <p>There are so many things to say but I don't really know what they are at this ridiculous hour of the morning</p>
-      <p><a href="https://docs.google.com/document/d/1fFcreCrizTWqtwBSr0fxZsFo-sE3xMMDH8FOYWOfN9w/edit?usp=sharing">Here is a link to notes</a></p>
-      <p><a href="page1.html">page 1</a></p>
+      <!-- One box with both lines -->
+      <div id="introBox" class="bounce-box">
+        <h1 class="intro-title">HI, MY NAME IS HRIDAY</h1>
+        <p class="intro-sub">WELCOME TO MY PORTFOLIO</p>
+      </div>
+
+      <!-- Second box with the bio -->
+      <div id="bioBox" class="bounce-box">
+        <p class="bio">
+          I’m a self-taught designer with a passion for creative problem-solving. I’m always learning and committed to innovation in design, and I love blending design with technology to bring ideas to life.
+        </p>
+      </div>
     </main>
 
+    <!-- your p5 background + cursor -->
     <script src="sketches.js"></script>
+
+    <script>
+      const here = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.nav-link').forEach(a => {
+        if (a.getAttribute('href') === here) a.classList.add('is-active');
+      });
+    </script>
+
+    <!-- Bounce logic -->
+    <script>
+      (function() {
+        const NAV_H = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 46;
+        const margin = 10;
+
+        function makeBouncer(el, { startX, startY, vx = 2.2, vy = 1.8 } = {}) {
+          let x = startX ?? 50;
+          let y = startY ?? NAV_H + 20;
+          let dx = vx, dy = vy;
+
+          function frame() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const rect = el.getBoundingClientRect();
+            const maxX = w - rect.width - margin;
+            const minX = margin;
+            const maxY = h - rect.height - margin;
+            const minY = NAV_H + margin;
+
+            x += dx;
+            y += dy;
+
+            if (x <= minX) { x = minX; dx = Math.abs(dx); }
+            if (x >= maxX) { x = maxX; dx = -Math.abs(dx); }
+            if (y <= minY) { y = minY; dy = Math.abs(dy); }
+            if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
+
+            el.style.transform = `translate(${x}px, ${y}px)`;
+            requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        }
+
+        makeBouncer(document.getElementById('introBox'), { startX: 60,  startY: NAV_H + 30,  vx: 2.4, vy: 1.9 });
+        makeBouncer(document.getElementById('bioBox'),   { startX: 220, startY: NAV_H + 140, vx: -1.7, vy: 1.5 });
+      })();
+    </script>
   </body>
 </html>
