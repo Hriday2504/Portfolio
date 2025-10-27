@@ -9,12 +9,12 @@ body {
   padding-top: var(--nav-h);
 }
 
-/* Splash (blue, slower fade kept) */
+
 .intro{
   position:fixed; inset:0; z-index:9999;
   background: radial-gradient(1200px 600px at 50% 40%, rgba(80,120,255,.12), transparent 60%), #000;
   display:flex; align-items:center; justify-content:center;
-  transition: opacity 0.8s ease; /* keep slow fade */
+  transition: opacity 0.8s ease; 
   cursor: default;
 }
 .intro-box{
@@ -88,7 +88,7 @@ body {
 .nav-link:hover::after,.nav-link:focus::after,.nav-link.is-active::after{ transform: scaleX(1); }
 .nav-link:focus{ outline: 2px solid #7cacf8; outline-offset: 2px; }
 
-/* Bouncing boxes */
+
 main{ position: relative; z-index: 1; }
 .bounce-box{
   position: fixed; top: 0; left: 0;
