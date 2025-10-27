@@ -1,7 +1,111 @@
-html, body {
-  margin: 100;
-  padding: 100;
+:root { --nav-h: 46px; }
+
+html, body { height: 100%; margin: 0; overflow: hidden; }
+body {
+  background: #000;
+  color: #fff;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  cursor: none;
+  padding-top: var(--nav-h);
 }
-canvas {
-  display: block;
+
+/* Splash (blue, slower fade kept) */
+.intro{
+  position:fixed; inset:0; z-index:9999;
+  background: radial-gradient(1200px 600px at 50% 40%, rgba(80,120,255,.12), transparent 60%), #000;
+  display:flex; align-items:center; justify-content:center;
+  transition: opacity 0.8s ease; /* keep slow fade */
+  cursor: default;
+}
+.intro-box{
+  padding: 28px 34px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  box-shadow: 0 0 22px rgba(120,160,255,.12), inset 0 0 40px rgba(255,255,255,.02);
+  text-align:center; user-select:none;
+  animation: pop .28s ease-out both;
+}
+.intro-title{
+  font: 900 clamp(30px,7vw,72px)/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  letter-spacing:.06em; color:#eaf2ff;
+  text-shadow: 0 0 18px rgba(120,160,255,.25);
+  animation: flicker 1.2s linear 1;
+}
+.intro-sub{
+  margin-top:6px;
+  font: 700 clamp(12px,2.4vw,16px)/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  letter-spacing:.28em; color:#9bcdfb; opacity:.9;
+}
+.intro-scan{
+  position:relative; overflow:hidden; height:2px; margin:18px auto 6px; width:min(62vw,520px);
+  background: rgba(255,255,255,.12);
+}
+.intro-scan::after{
+  content:""; position:absolute; left:-20%; top:-6px; width:20%; height:14px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.7), transparent);
+  filter: blur(3px);
+  animation: scan 1.8s ease-in-out 1 .15s;
+}
+.intro-hint{
+  margin-top:6px; color:#7da8f3; font-size:12px; letter-spacing:.12em; opacity:.7;
+}
+.intro.done{ opacity:0; pointer-events:none; }
+@keyframes pop{ from{ transform:scale(.96); opacity:0 } to{ transform:scale(1); opacity:1 } }
+@keyframes scan{ from{ left:-25% } to{ left:105% } }
+@keyframes flicker{
+  0%{opacity:0} 6%{opacity:1} 10%{opacity:.65} 14%{opacity:1}
+  20%{opacity:.85} 26%{opacity:1} 60%{opacity:1} 100%{opacity:1}
+}
+
+/* Nav */
+.site-nav{
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(20,22,26,0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+.site-nav nav{ height: 100%; display: grid; place-items: center; }
+.nav-list{
+  list-style: none; margin: 0; padding: 0 14px;
+  display: grid; grid-auto-flow: column; gap: 90px;
+}
+.nav-link{
+  display: inline-block;
+  font: 600 13px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  letter-spacing: 0.12em; text-decoration: none; color: #b7c3cf;
+  padding: 12px 2px; position: relative;
+}
+.nav-link:hover,.nav-link:focus{ color:#e7edf3; }
+.nav-link::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px;
+  background: rgba(255,255,255,0.35);
+  transform: scaleX(0); transform-origin: center; transition: transform .18s ease;
+}
+.nav-link:hover::after,.nav-link:focus::after,.nav-link.is-active::after{ transform: scaleX(1); }
+.nav-link:focus{ outline: 2px solid #7cacf8; outline-offset: 2px; }
+
+/* Bouncing boxes */
+main{ position: relative; z-index: 1; }
+.bounce-box{
+  position: fixed; top: 0; left: 0;
+  padding: 18px 26px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+  color: #eaf4ff; user-select: none; pointer-events: none; z-index: 200;
+  text-align: center; white-space: normal; max-width: min(90vw, 900px); line-height: 1.2;
+}
+.intro-title{ font-size: clamp(26px, 6vw, 56px); font-weight: 800; letter-spacing:.02em; margin: 0; }
+.intro-sub{ font-size: clamp(26px, 6vw, 56px); font-weight: 800; letter-spacing:.02em; margin: 8px 0 0 0; color: rgb(155,204,251); }
+.bio{ color: rgb(200,220,245); font-size: clamp(14px, 2.6vw, 18px); margin: 0; }
+
+@media (max-width: 640px){
+  .nav-list{ gap: 36px; }
+  :root{ --nav-h: 44px; }
 }
